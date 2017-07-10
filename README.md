@@ -1,6 +1,10 @@
 Pyle
 ====
 
+This fork
+---------------------------------------------
+Python 3 and Windows compatibility fixes.
+
 Use Python for sed or perl-like shell scripts
 ---------------------------------------------
 
