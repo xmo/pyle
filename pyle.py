@@ -29,6 +29,7 @@ from io import StringIO
 import re
 import sys
 import traceback
+from six import string_types
 
 STANDARD_MODULES = {
     're': re
@@ -93,7 +94,7 @@ def pyle_evaluate(expressions=None, modules=(), inplace=False, files=None, print
 
                         # If the result is something list-like or iterable,
                         # output each item space separated.
-                        if not isinstance(out_line, str) and not isinstance(out_line, unicode):
+                        if not isinstance(out_line, string_types):
                             try:
                                 out_line = u' '.join(unicode(part)
                                                      for part in out_line)
