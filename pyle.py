@@ -28,7 +28,7 @@ The sh module makes it easy to run additional commands from within the expressio
 __version__ = "0.2"
 
 import argparse
-import cStringIO as StringIO
+from io import StringIO
 import re
 import sh
 import sys
