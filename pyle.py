@@ -30,6 +30,7 @@ import re
 import sys
 import traceback
 from six import string_types
+from builtins import str
 
 STANDARD_MODULES = {
     're': re
@@ -96,11 +97,11 @@ def pyle_evaluate(expressions=None, modules=(), inplace=False, files=None, print
                         # output each item space separated.
                         if not isinstance(out_line, string_types):
                             try:
-                                out_line = u' '.join(unicode(part)
+                                out_line = u' '.join(str(part)
                                                      for part in out_line)
                             except:
                                 # Guess it wasn't a list after all.
-                                out_line = unicode(out_line)
+                                out_line = str(out_line)
 
                         line = out_line
                 except Exception as e:
