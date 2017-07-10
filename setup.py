@@ -82,8 +82,7 @@ Pyle is mostly compatible with PyLine but requires a ``-e`` before the
 evaluation statement.
 """,
       install_requires=[
-        'argparse >= 1.2.1',
-        'sh >= 1.0.9',
+        'argparse >= 1.2.1'
       ],
 
       )

@@ -19,9 +19,6 @@ The following variables are available in the global scope:
 The following modules are imported by default:
 
     * `re`:         Python regular expressions
-    * `sh`:         the [`sh` module (formerly `pbs`)](https://pypi.python.org/pypi/sh)
-
-The sh module makes it easy to run additional commands from within the expression.
 
 """
 
@@ -30,13 +27,11 @@ __version__ = "0.2"
 import argparse
 from io import StringIO
 import re
-import sh
 import sys
 import traceback
 
 STANDARD_MODULES = {
-    're': re,
-    'sh': sh
+    're': re
 }
 
 
