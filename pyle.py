@@ -67,28 +67,30 @@ def pyle_evaluate(expressions=None, modules=(), inplace=False, files=None, print
         if file == '-':
             file = sys.stdin
 
-        out_buf = sys.stdout if not inplace else StringIO.StringIO()
+        # out_buf = sys.stdout if not inplace else StringIO.StringIO()
+        out_buf = open(sys.stdout.fileno(), 'w')
 
         out_line = None
-        with (open(file, 'rb') if not hasattr(file, 'read') else file) as in_file:
-            for num, line in enumerate(in_file.readlines()):
-                was_whole_line = False
-                if line[-1] == '\n':
-                    was_whole_line = True
-                    line = line[:-1]
-
+        num = 0
+        with (open(file, 'r', buffering=65536, encoding='utf-8') if not hasattr(file, 'read') else file) as in_file:
+        #with (open(file, 'rb') if not hasattr(file, 'read') else file) as in_file:
+            for line in in_file:
+                num = num + 1
                 expr = ""
                 try:
                     for expr in expressions:
-                        words = [word.strip()
-                                 for word in re.split(r'\s+', line)
-                                 if word]
+                        # words = [word.strip()
+                        #          for word in re.split(r'\s+', line)
+                        #          if word]
                         eval_locals.update({
-                            'line': line, 'words': words,
-                            'filename': in_file.name, 'num': num
+                            'line': line,
+                        #    'words': words,
+                            'filename': in_file.name,
+                            'num': num
                             })
 
                         out_line = eval(expr, eval_globals, eval_locals)
+                        # out_line = eval("'abc'")
 
                         if out_line is None:
                             continue
@@ -116,8 +118,6 @@ def pyle_evaluate(expressions=None, modules=(), inplace=False, files=None, print
 
                     out_line = out_line or u''
                     out_buf.write(out_line)
-                    if was_whole_line:
-                        out_buf.write('\n')
         if inplace:
             with open(file, 'wb') as out_file:
                 out_file.write(out_buf.getvalue())
